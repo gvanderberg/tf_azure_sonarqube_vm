@@ -1,0 +1,19 @@
+variables:
+  - name: computer_name
+    value: azvpwesq21
+  - name: location
+    value: westeurope
+  - name: resource_group_create
+    value: false
+  - name: resource_group_name
+    value: azrg-prd-we-devops
+  - name: subnet_name
+    value: azsnet-prd-lan
+  - name: subnet_resource_group_name
+    value: azrg-prd-net
+  - name: subnet_virtual_network_name
+    value: azvnet-prd
+  - name: virtual_machine_name
+    value: azvm-prd-we-sonarqube21
+  - name: workspace_name
+    value: sonarqube-we-prd

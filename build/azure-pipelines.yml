@@ -1,0 +1,52 @@
+pool:
+  vmImage: ubuntu-latest
+
+pr: none
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+
+variables:
+  - group: Prod - Terraform CLI
+  - name: admin_username
+    value: azuresupport
+  - name: tags_environment
+    value: Production
+  - name: tags_location
+    value: $(location)
+  - name: tags_managed_by
+    value: $(managed-by)
+  - name: terraformVersion
+    value: "0.14.6"
+  - name: virtual_machine_size
+    value: Standard_DS2_v2
+
+stages:
+  - template: build-stage.yml
+    parameters:
+      displayName: package scripts
+      stageName: package
+      pathtoPublish: $(Build.SourcesDirectory)/src
+
+  - template: release-stage.yml
+    parameters:
+      condition: succeeded()
+      dependsOn: package
+      displayName: plan (westeurope)
+      environment: prod (westeurope)
+      stageName: plan_prod_we
+      stepsTemplate: release-steps-plan.yml
+      variableTemplate: release-variables-we-prd.yml
+
+  - template: release-stage.yml
+    parameters:
+      condition: succeeded()
+      dependsOn: plan_prod_we
+      displayName: apply (westeurope)
+      environment: prod (westeurope)
+      stageName: apply_prod_we
+      stepsTemplate: release-steps-apply.yml
+      variableTemplate: release-variables-we-prd.yml

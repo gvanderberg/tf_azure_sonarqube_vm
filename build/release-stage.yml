@@ -1,0 +1,39 @@
+parameters:
+  - name: condition
+    default: ""
+    type: string
+  - name: dependsOn
+    default: ""
+    type: string
+  - name: displayName
+    type: string
+  - name: environment
+    type: string
+  - name: stageName
+    type: string
+  - name: templateName
+    default: ""
+    type: string
+  - name: stepsTemplate
+    type: string
+  - name: variableTemplate
+    type: string
+
+stages:
+  - stage: ${{ parameters.stageName }}
+    condition: ${{ parameters.condition }}
+    dependsOn: ${{ parameters.dependsOn }}
+    displayName: ${{ parameters.displayName }}
+
+    jobs:
+      - deployment: provision
+        displayName: provision job
+        environment: ${{ parameters.environment }}
+        variables:
+          - template: ${{ parameters.variableTemplate }}
+
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - template: ${{ parameters.stepsTemplate }}

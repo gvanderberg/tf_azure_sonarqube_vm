@@ -1,0 +1,44 @@
+steps:
+  - download: current
+    artifact: drop
+
+  - task: replacetokens@3
+    displayName: Replace tokens in $(Pipeline.Workspace)/drop/*.tf
+    inputs:
+      targetFiles: $(Pipeline.Workspace)/drop/*.tf
+      actionOnMissing: continue
+      escapeType: none
+      tokenPrefix: __
+      tokenSuffix: __
+
+  - task: TerraformInstaller@0
+    displayName: terraform install $(terraformVersion)
+    inputs:
+      terraformVersion: $(terraformVersion)
+
+  - script: |
+      set -e
+
+      echo 'hostname = "app.terraform.io"' | tee -a backend.tfvars
+      echo 'organization = "$(terraform-organization)"' | tee -a backend.tfvars
+      echo 'token = "$(terraform-token)"' | tee -a backend.tfvars
+      echo 'workspaces { name = "$(workspace_name)" }' | tee -a backend.tfvars
+
+      # terraform init
+      terraform init -no-color -input=false -backend-config="backend.tfvars"
+
+      curl --location --request PATCH "https://app.terraform.io/api/v2/organizations/$(terraform-organization)/workspaces/$(workspace_name)" \
+        --header "Content-Type: application/vnd.api+json" \
+        --header "Authorization: Bearer $(terraform-token)" \
+        --data-raw "{\"data\":{\"type\":\"workspaces\",\"attributes\":{\"operations\":false}}}"
+
+      # terraform plan
+      terraform plan -no-color -input=false
+    displayName: terraform plan
+    name: terraformPlan
+    env:
+      ARM_CLIENT_ID: $(terraform-client-id)
+      ARM_CLIENT_SECRET: $(terraform-client-secret)
+      ARM_TENANT_ID: $(terraform-tenant-id)
+      ARM_SUBSCRIPTION_ID: $(terraform-subscription-id)
+    workingDirectory: $(Pipeline.Workspace)/drop

@@ -1,0 +1,12 @@
+parameters:
+  - name: pathtoPublish
+    type: string
+
+steps:
+  - task: GitVersion@5
+    inputs:
+      preferBundledVersion: false
+      configFilePath: GitVersion.yml
+
+  - publish: ${{ parameters.pathtoPublish }}
+    artifact: drop
