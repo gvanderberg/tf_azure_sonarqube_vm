@@ -5,7 +5,7 @@
 * [SonarQube - Azure AD login does not place users in correct groups](https://github.com/hkamel/sonar-auth-aad/issues/62)
 * [Use the portal to attach a data disk to a Linux VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal)
 
-###SQL Server collation
+SQL Server collation
 > Latin1_General_CS_AS
 
 ```bash
