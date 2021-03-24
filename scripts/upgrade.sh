@@ -12,12 +12,9 @@ wget $SONARQUBE_ZIP_URL
 unzip sonarqube-enterprise-${SONARQUBE_VERSION}.zip
 
 cp -rf /opt/sonarqube/conf/* /downloads/sonarqube-${SONARQUBE_VERSION}/conf/
-cp -rf /opt/sonarqube/ /opt/sonarqube-bak
 
-rm -rf /opt/sonarqube/
+mkdir /opt/sonarqube-${SONARQUBE_VERSION}
 
-mkdir /opt/sonarqube
+mv sonarqube-${SONARQUBE_VERSION}/* /opt/sonarqube-${SONARQUBE_VERSION}
 
-mv sonarqube-${SONARQUBE_VERSION}/* /opt/sonarqube
-
-chown -R sonarqube:sonarqube /opt/sonarqube
+chown -R sonarqube:sonarqube /opt/sonarqube-${SONARQUBE_VERSION}
