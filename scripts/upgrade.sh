@@ -13,6 +13,7 @@ unzip sonarqube-enterprise-${SONARQUBE_VERSION}.zip
 rm -rf sonarqube-enterprise-${SONARQUBE_VERSION}.zip
 
 cp -rf /opt/sonarqube/conf/* /downloads/sonarqube-${SONARQUBE_VERSION}/conf/
+cp -rf /opt/sonarqube/extensions/plugins/* /downloads/sonarqube-${SONARQUBE_VERSION}/plugins/
 
 mv sonarqube-${SONARQUBE_VERSION} /opt
 
