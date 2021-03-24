@@ -18,6 +18,7 @@ cd /downloads
 
 wget $SONARQUBE_ZIP_URL
 unzip sonarqube-enterprise-${SONARQUBE_VERSION}.zip
+rm -rf sonarqube-enterprise-${SONARQUBE_VERSION}.zip
 
 mkdir /opt/sonarqube
 
