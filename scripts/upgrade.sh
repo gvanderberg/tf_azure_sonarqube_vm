@@ -2,7 +2,7 @@
 
 set -eux
 
-SONARQUBE_VERSION="8.7.1.42226"
+SONARQUBE_VERSION="8.8.0.42792"
 SONARQUBE_ZIP_URL="https://binaries.sonarsource.com/CommercialDistribution/sonarqube-enterprise/sonarqube-enterprise-${SONARQUBE_VERSION}.zip"
 
 mkdir -p /downloads
@@ -13,7 +13,7 @@ unzip sonarqube-enterprise-${SONARQUBE_VERSION}.zip
 rm -rf sonarqube-enterprise-${SONARQUBE_VERSION}.zip
 
 cp -rf /opt/sonarqube/conf/* /downloads/sonarqube-${SONARQUBE_VERSION}/conf/
-cp -rf /opt/sonarqube/extensions/plugins/* /downloads/sonarqube-${SONARQUBE_VERSION}/plugins/
+cp -rf /opt/sonarqube/extensions/plugins/* /downloads/sonarqube-${SONARQUBE_VERSION}/extensions/plugins/
 
 mv sonarqube-${SONARQUBE_VERSION} /opt
 

@@ -10,7 +10,7 @@ apt-get install -y \
   unzip \
   wget
 
-SONARQUBE_VERSION="8.7.1.42226"
+SONARQUBE_VERSION="8.8.0.42792"
 SONARQUBE_ZIP_URL="https://binaries.sonarsource.com/CommercialDistribution/sonarqube-enterprise/sonarqube-enterprise-${SONARQUBE_VERSION}.zip"
 
 mkdir -p /downloads
