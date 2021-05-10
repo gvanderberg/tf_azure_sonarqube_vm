@@ -22,7 +22,7 @@ variables:
   - name: terraformVersion
     value: "0.14.6"
   - name: virtual_machine_size
-    value: Standard_DS2_v2
+    value: Standard_D2s_v4
 
 stages:
   - template: build-stage.yml
