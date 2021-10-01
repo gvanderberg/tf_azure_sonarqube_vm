@@ -32,3 +32,20 @@ sonar.web.host=0.0.0.0
 sonar.path.data=/path/to/fast/io/volume/data
 sonar.path.temp=/path/to/fast/io/volume/temp
 ```
+
+## Upgrade steps
+
+```bash
+sudo ./upgrade.sh
+sudo systemctl stop sonarqube.service
+sudo mv /opt/sonarqube /opt/sonarqube-{yyyymmdd}
+sudo mv /opt/sonarqube-{SONARQUBE_VERSION} /opt/sonarqube
+sudo vi /etc/systemd/system/sonarqube.service
+
+  ExecStart=/usr/bin/nohup /usr/bin/java -Xms32m -Xmx32m -Djava.net.preferIPv4Stack=true -jar /opt/sonarqube/lib/sonar-application-{SONARQUBE_VERSION}.jar
+
+sudo systemctl daemon-reload
+sudo systemctl start sonarqube.service
+```
+
+To perform database migration after upgrade open url `https://sonarqube.outsurance.co.za/setup`

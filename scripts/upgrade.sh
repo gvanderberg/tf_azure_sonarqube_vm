@@ -2,7 +2,7 @@
 
 set -eux
 
-SONARQUBE_VERSION="8.8.0.42792"
+SONARQUBE_VERSION="9.1.0.47736"
 SONARQUBE_ZIP_URL="https://binaries.sonarsource.com/CommercialDistribution/sonarqube-enterprise/sonarqube-enterprise-${SONARQUBE_VERSION}.zip"
 
 mkdir -p /downloads
