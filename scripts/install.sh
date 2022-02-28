@@ -10,7 +10,7 @@ apt-get install -y \
   unzip \
   wget
 
-SONARQUBE_VERSION="8.8.0.42792"
+SONARQUBE_VERSION="9.3.0.51899"
 SONARQUBE_ZIP_URL="https://binaries.sonarsource.com/CommercialDistribution/sonarqube-enterprise/sonarqube-enterprise-${SONARQUBE_VERSION}.zip"
 
 mkdir -p /downloads
@@ -72,7 +72,7 @@ server {
 }
 
 server {
-  client_max_body_size 20M;
+  client_max_body_size 500M;
   
   # port to listen on. Can also be set to an IP:PORT
   listen 443 ssl;

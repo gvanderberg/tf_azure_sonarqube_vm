@@ -5,8 +5,11 @@
 * [SonarQube - Azure AD login does not place users in correct groups](https://github.com/hkamel/sonar-auth-aad/issues/62)
 * [Use the portal to attach a data disk to a Linux VM](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/attach-disk-portal)
 
-SQL Server collation
-> Latin1_General_CS_AS
+Binaries and versions can be found at [binaries.sonarsource.com](https://binaries.sonarsource.com/?prefix=CommercialDistribution/sonarqube-enterprise/).
+
+```
+Latin1_General_CS_AS
+```
 
 ```bash
 vi /opt/sonarqube/bin/linux-x86-64/sonar.sh
@@ -33,19 +36,19 @@ sonar.path.data=/path/to/fast/io/volume/data
 sonar.path.temp=/path/to/fast/io/volume/temp
 ```
 
-## Upgrade steps
+## Upgrade Procedure
+
+Update the variable `SONARQUBE_VERSION` in the `upgrade.sh` file to the latest version.
+Before starting the sonarqube service you need to update the service unit configuration to use the new version number.
+You might also need to do a manual database migration after the service started by going to URL: `https://{sonarqube}/setup`.
 
 ```bash
 sudo ./upgrade.sh
 sudo systemctl stop sonarqube.service
-sudo mv /opt/sonarqube /opt/sonarqube-{yyyymmdd}
+sudo mv /opt/sonarqube /opt/sonarqube-{yyyyMMdd}
 sudo mv /opt/sonarqube-{SONARQUBE_VERSION} /opt/sonarqube
 sudo vi /etc/systemd/system/sonarqube.service
-
-  ExecStart=/usr/bin/nohup /usr/bin/java -Xms32m -Xmx32m -Djava.net.preferIPv4Stack=true -jar /opt/sonarqube/lib/sonar-application-{SONARQUBE_VERSION}.jar
-
+....
 sudo systemctl daemon-reload
 sudo systemctl start sonarqube.service
 ```
-
-To perform database migration after upgrade open url `https://sonarqube.outsurance.co.za/setup`
